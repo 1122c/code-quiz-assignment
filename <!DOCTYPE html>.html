@@ -17,7 +17,24 @@
         <div id="question-container"></div>
         <div id="choices-container"></div>
       </div>
-      
+      <div id="end-container" style="display: none;">
+        <h1>Quiz Over!</h1>
+        <div class="field_group">
+          <label for="initials">First Name</label>
+          <input type="text" id="first_name">
+        </div>
+        <div class="field_group">
+          <label for="initials">Last Name</label>
+          <input type="text" id="last_name">
+        </div>
+        <button class="button" id="save-bt">Save Score</button>
+      </div>
+      <div id="high-scores-container" style="display:none">
+        <div class="close" id="close"> X </div>
+        <h2>High Scores</h2>
+        <ol id="high_scores_data"></ol>
+      </div>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
