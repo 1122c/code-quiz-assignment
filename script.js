@@ -61,3 +61,88 @@ function displayQuestion() {
   questionContainer.textContent = currentQuestion.question;
   choicesContainer.innerHTML = "";
 }
+currentQuestion.choices.forEach((choice, index) => {
+  const choiceButton = document.createElement("button");
+  choiceButton.textContent = choice;
+  choiceButton.classList.add("button");
+  choiceButton.addEventListener("click", () => checkAnswer(choice));
+  choicesContainer.appendChild(choiceButton);
+});
+
+function checkAnswer(selectedChoice) {
+  const currentQuestion = questions[currentQuestionIndex];
+  if (selectedChoice === currentQuestion.correctAnswer) {
+    score++;
+  } else {
+    timeRemaining -= 10;
+    {
+    }
+    currentQuestionIndex++;
+
+    if (currentQuestionIndex < questions.length) {
+      displayQuestion();
+    } else {
+      updateTimer();
+      endQuiz();
+    }
+  }
+  function updateTimer() {
+    if (timeRemaining > 0) {
+      timeRemaining--;
+      timerElement.textContent = timeRemaining;
+    } else {
+      endQuiz();
+    }
+  }
+  function endQuiz() {
+    clearInterval(timerInterval);
+    questionContainer.textContent = "";
+    choicesContainer.textContent = "";
+    endContainer.style.display = "block";
+  }
+
+  function saveScore() {
+    const firstName = document.getElementById("first_name").value;
+    const lastName = document.getElementById("last_name").value;
+    let records = localStorage.getItem("highScore");
+    if (records) {
+      records = JSON.parse(records);
+      records.push({
+        initial: `${firstName} ${lastName}`,
+        score: score,
+      });
+      records = JSON.stringify(records);
+      localStorage.setItem("highScore", records);
+    } else {
+      records = [
+        {
+          initial: `${firstName} ${lastName}`,
+          score: score,
+        },
+      ];
+      records = JSON.stringify(records);
+      localStorage.setItem("highScore", records);
+    }
+    endContainer.style.display = "none";
+    showHighScore();
+  }
+  function showHighScore() {
+    let records = localStorage.getItem("highScore");
+    records = JSON.parse(records);
+    records.sort((a, b) => b.score - a.score);
+    let recordsHtml = "";
+    records.forEach(function (record) {
+      recordsHtml += `<li>${record.initial} : ${record.score}</li>`;
+    });
+    document.getElementById("high_scores_data").innerHTML = recordsHtml;
+    highScoresContainer.style.display = "block";
+  }
+
+  function closeHighScore() {
+    highScoresContainer.style.display = "none";
+  }
+  startButton.addEventListener("click", startQuiz);
+  saveScoreBt.addEventListener("click", saveScore);
+  highScoreBt.addEventListener("click", showHighScore);
+  closeButton.addEventListener("click", closeHighScore);
+}
