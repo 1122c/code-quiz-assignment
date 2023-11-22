@@ -14,3 +14,25 @@ document.addEventListener("DOMContentLoaded", function () {
   let timeRemaining = 60;
   let timerInterval;
 });
+const questions = [
+  {
+    question: "JSON stands for _______.",
+    choices: [
+      "JavaScript Object Notation",
+      "Java Object Notation",
+      "JavaScript Object Normalization",
+      "JavaScript Object-Oriented Notation",
+    ],
+    correctAnswer: "JavaScript Object Notation",
+  },
+  {
+    question: " JSON is a _____ for storing and transporting data.",
+    choices: ["xml format", "text format", "JavaScript", "php format"],
+    correctAnswer: "text format",
+  },
+  {
+    question: "The JSON syntax is a subset of the _____ syntax.",
+    choices: ["Ajax", "Php", "HTML", "JavaScript"],
+    correctAnswer: "JavaScript",
+  },
+];
