@@ -117,3 +117,18 @@ main_container {
   z-index: 2;
   background: #ffff;
 }
+#high_scores_data {
+  width: 100%;
+  text-align: left;
+  max-width: 200px;
+  margin: 0 auto;
+  margin-top: 20px;
+  font-weight: bold;
+}
+.close {
+  font-weight: bold;
+  cursor: pointer;
+  text-align: right;
+  color: red;
+  font-size: 20px;
+}

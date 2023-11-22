@@ -35,4 +35,29 @@ const questions = [
     choices: ["Ajax", "Php", "HTML", "JavaScript"],
     correctAnswer: "JavaScript",
   },
+  {
+    question: "In the JSON syntax, data is separated by _____.",
+    choices: ["Semicolons", "Colons", "Commas", "Hyper"],
+    correctAnswer: "Commas",
+  },
+  {
+    question: "In the JSON syntax, array is written within in ____.",
+    choices: [
+      "Square brackets",
+      "Curley braces",
+      "Paratheses",
+      "None of the above",
+    ],
+    correctAnswer: "Square brackets",
+  },
 ];
+function startQuiz() {
+  startButton.style.display = "none";
+  displayQuestion();
+  timerInterval = setInterval(updateTimer, 1000);
+}
+function displayQuestion() {
+  const currentQuestion = questions[currentQuestionIndex];
+  questionContainer.textContent = currentQuestion.question;
+  choicesContainer.innerHTML = "";
+}
