@@ -14,80 +14,78 @@ document.addEventListener("DOMContentLoaded", function () {
   let timeRemaining = 60;
   let timerInterval;
 
-const questions = [
-  {
-    question: "JSON stands for _______.",
-    choices: [
-      "JavaScript Object Notation",
-      "Java Object Notation",
-      "JavaScript Object Normalization",
-      "JavaScript Object-Oriented Notation",
-    ],
-    correctAnswer: "JavaScript Object Notation",
-  },
-  {
-    question: " JSON is a _____ for storing and transporting data.",
-    choices: ["xml format", "text format", "JavaScript", "php format"],
-    correctAnswer: "text format",
-  },
-  {
-    question: "The JSON syntax is a subset of the _____ syntax.",
-    choices: ["Ajax", "Php", "HTML", "JavaScript"],
-    correctAnswer: "JavaScript",
-  },
-  {
-    question: "In the JSON syntax, data is separated by _____.",
-    choices: ["Semicolons", "Colons", "Commas", "Hyper"],
-    correctAnswer: "Commas",
-  },
-  {
-    question: "In the JSON syntax, array is written within in ____.",
-    choices: [
-      "Square brackets",
-      "Curley braces",
-      "Paratheses",
-      "None of the above",
-    ],
-    correctAnswer: "Square brackets",
-  },
-];
-function startQuiz() {
-  startButton.style.display = "none";
-  displayQuestion();
-  timerInterval = setInterval(updateTimer, 1000);
-}
-
-function displayQuestion() {
-  const currentQuestion = questions[currentQuestionIndex];
-  questionContainer.textContent = currentQuestion.question;
-  choicesContainer.innerHTML = "";
-  currentQuestion.choices.forEach((choice, index) => {
-    const choiceButton = document.createElement("button");
-    choiceButton.textContent = choice;
-    choiceButton.classList.add("button");
-    choiceButton.addEventListener("click", () => checkAnswer(choice));
-    choicesContainer.appendChild(choiceButton);
-  });
-}
-
-function checkAnswer(selectedChoice) {
-  const currentQuestion = questions[currentQuestionIndex];
-  if (selectedChoice === currentQuestion.correctAnswer) {
-    score++;
-  } else {
-    timeRemaining -= 10;
+  const questions = [
     {
-    }
-    currentQuestionIndex++;
+      question: "JSON stands for _______.",
+      choices: [
+        "JavaScript Object Notation",
+        "Java Object Notation",
+        "JavaScript Object Normalization",
+        "JavaScript Object-Oriented Notation",
+      ],
+      correctAnswer: "JavaScript Object Notation",
+    },
+    {
+      question: " JSON is a _____ for storing and transporting data.",
+      choices: ["xml format", "text format", "JavaScript", "php format"],
+      correctAnswer: "text format",
+    },
+    {
+      question: "The JSON syntax is a subset of the _____ syntax.",
+      choices: ["Ajax", "Php", "HTML", "JavaScript"],
+      correctAnswer: "JavaScript",
+    },
+    {
+      question: "In the JSON syntax, data is separated by _____.",
+      choices: ["Semicolons", "Colons", "Commas", "Hyper"],
+      correctAnswer: "Commas",
+    },
+    {
+      question: "In the JSON syntax, array is written within in ____.",
+      choices: [
+        "Square brackets",
+        "Curley braces",
+        "Paratheses",
+        "None of the above",
+      ],
+      correctAnswer: "Square brackets",
+    },
+  ];
+  function startQuiz() {
+    startButton.style.display = "none";
+    displayQuestion();
+    timerInterval = setInterval(updateTimer, 1000);
+  }
 
+  function displayQuestion() {
+    const currentQuestion = questions[currentQuestionIndex];
+    questionContainer.textContent = currentQuestion.question;
+    choicesContainer.innerHTML = "";
+    currentQuestion.choices.forEach((choice, index) => {
+      const choiceButton = document.createElement("button");
+      choiceButton.textContent = choice;
+      choiceButton.classList.add("button");
+      choiceButton.addEventListener("click", () => checkAnswer(choice));
+      choicesContainer.appendChild(choiceButton);
+    });
+  }
+
+  function checkAnswer(selectedChoice) {
+    const currentQuestion = questions[currentQuestionIndex];
+    if (selectedChoice === currentQuestion.correctAnswer) {
+      score++;
+    } else {
+      timeRemaining -= 10;
+    }
+
+    currentQuestionIndex++;
     if (currentQuestionIndex < questions.length) {
       displayQuestion();
     } else {
-      updateTimer();
       endQuiz();
     }
   }
-}
+
   function updateTimer() {
     if (timeRemaining > 0) {
       timeRemaining--;
@@ -98,6 +96,8 @@ function checkAnswer(selectedChoice) {
   }
   function endQuiz() {
     clearInterval(timerInterval);
+    timeRemaining = 0;
+    timerElement.textContent = timeRemaining;
     questionContainer.textContent = "";
     choicesContainer.textContent = "";
     endContainer.style.display = "block";
@@ -148,5 +148,4 @@ function checkAnswer(selectedChoice) {
   saveScoreBt.addEventListener("click", saveScore);
   highScoreBt.addEventListener("click", showHighScore);
   closeButton.addEventListener("click", closeHighScore);
-
 });
