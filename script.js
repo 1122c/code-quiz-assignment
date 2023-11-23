@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let currentQuestionIndex = 0;
   let timeRemaining = 60;
   let timerInterval;
-});
+
 const questions = [
   {
     question: "JSON stands for _______.",
@@ -56,18 +56,19 @@ function startQuiz() {
   displayQuestion();
   timerInterval = setInterval(updateTimer, 1000);
 }
+
 function displayQuestion() {
   const currentQuestion = questions[currentQuestionIndex];
   questionContainer.textContent = currentQuestion.question;
   choicesContainer.innerHTML = "";
+  currentQuestion.choices.forEach((choice, index) => {
+    const choiceButton = document.createElement("button");
+    choiceButton.textContent = choice;
+    choiceButton.classList.add("button");
+    choiceButton.addEventListener("click", () => checkAnswer(choice));
+    choicesContainer.appendChild(choiceButton);
+  });
 }
-currentQuestion.choices.forEach((choice, index) => {
-  const choiceButton = document.createElement("button");
-  choiceButton.textContent = choice;
-  choiceButton.classList.add("button");
-  choiceButton.addEventListener("click", () => checkAnswer(choice));
-  choicesContainer.appendChild(choiceButton);
-});
 
 function checkAnswer(selectedChoice) {
   const currentQuestion = questions[currentQuestionIndex];
@@ -86,6 +87,7 @@ function checkAnswer(selectedChoice) {
       endQuiz();
     }
   }
+}
   function updateTimer() {
     if (timeRemaining > 0) {
       timeRemaining--;
@@ -141,8 +143,10 @@ function checkAnswer(selectedChoice) {
   function closeHighScore() {
     highScoresContainer.style.display = "none";
   }
+
   startButton.addEventListener("click", startQuiz);
   saveScoreBt.addEventListener("click", saveScore);
   highScoreBt.addEventListener("click", showHighScore);
   closeButton.addEventListener("click", closeHighScore);
-}
+
+});
